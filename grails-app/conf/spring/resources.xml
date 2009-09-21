@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="initialDirContextFactory"
+        class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
+        <constructor-arg value="ldap://BSMAN-PRDC:389/DC=blueskyts,DC=co,DC=uk"/>
+        <property name="managerDn">
+            <value>cn=martinsmith,dc=blueskyts,dc=co,dc=uk</value>
+        </property>
+
+        <property name="managerPassword">
+            <value>L1verpool</value>
+        </property>
+    </bean>
+
+    <bean id="userSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+        <constructor-arg index="0">
+            <value>OU=Users,DC=example,DC=com</value>
+
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>(mailNickname={0})</value>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <ref local="initialDirContextFactory"/>
+        </constructor-arg>
+        <property name="searchSubtree">
+
+            <value>true</value>
+        </property>
+    </bean>
+
+    <bean id="ldapAuthProvider" class="org.springframework.security.providers.ldap.LdapAuthenticationProvider">
+        <constructor-arg>
+            <bean class="org.springframework.security.providers.ldap.authenticator.BindAuthenticator">
+                <constructor-arg>
+                    <ref local="initialDirContextFactory"/>
+
+                </constructor-arg>
+                <property name="userSearch" ref="userSearch"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg> 
+            <bean class="org.springframework.security.ldap.populator.DefaultLdapAuthoritiesPopulator">
+                <constructor-arg>
+                    <ref local="initialDirContextFactory"/>
+                </constructor-arg>
+
+                <constructor-arg>
+                    <value>CN=Groups,DC=example,DC=com</value>
+                </constructor-arg>
+                <property name="groupRoleAttribute">
+                    <value>cn</value>
+                </property>
+            </bean>
+        </constructor-arg>
+
+    </bean>
+</beans>
+
