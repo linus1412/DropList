@@ -6,9 +6,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     <bean id="initialDirContextFactory"
         class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
-        <constructor-arg value="ldap://BSMAN-PRDC:389/DC=blueskyts,DC=co,DC=uk"/>
+        <constructor-arg value="ldap://bsman-prdc:389/dc=blueskyts,dc=local"/>
         <property name="managerDn">
-            <value>cn=martinsmith,dc=blueskyts,dc=co,dc=uk</value>
+            <value>Martin Smith</value>
         </property>
 
         <property name="managerPassword">
@@ -18,7 +18,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     <bean id="userSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
         <constructor-arg index="0">
-            <value>OU=Users,DC=example,DC=com</value>
+            <value>ou=Users,dc=bluesky,dc=local</value>
 
         </constructor-arg>
         <constructor-arg index="1">
@@ -50,7 +50,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
                 </constructor-arg>
 
                 <constructor-arg>
-                    <value>CN=Groups,DC=example,DC=com</value>
+                    <value>CN=Groups,DC=blueskyts,DC=localhost</value>
                 </constructor-arg>
                 <property name="groupRoleAttribute">
                     <value>cn</value>
