@@ -8,11 +8,11 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
         <constructor-arg value="ldap://bsman-prdc:389/OU=Users,OU=BlueSky,dc=blueskyts,dc=local"/>
         <property name="managerDn">
-            <value>ldap</value>
+            <value>${ldap.manager.username}</value>
         </property>
 
         <property name="managerPassword">
-            <value>password</value>
+            <value>${ldap.manager.password}</value>
         </property>
     </bean>
 
