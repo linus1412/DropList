@@ -4,6 +4,9 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
+<!-- Removed - Now using the Spring/Acegi Security Plugin for LDAP/AS validation
+     This can all be removed once we are happy that this all works fine
+
     <bean id="initialDirContextFactory"
         class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
         <constructor-arg value="ldap://bsman-prdc:389/OU=Users,OU=BlueSky,dc=blueskyts,dc=local"/>
@@ -58,5 +61,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         </constructor-arg>
 
     </bean>
+
+    -->
+
 </beans>
 
