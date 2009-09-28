@@ -2,16 +2,31 @@ import org.grails.comments.*
 
 class Item implements Commentable {
 
-    String tdRef
+    Integer tdRef
+    td.Bug bug
     boolean candidate
     boolean fixed
     boolean passed
 
     Priority priority
 
-    static belongsTo = Group
+    static belongsTo = DropList
 
     static constraints = {
+        tdRef(nullable:true, validator: {val, obj ->
+                if (val && !td.Bug.get(val)) return "no.such.bug"
+                }
+            )
+    }
+
+    static transients = ['bug']
+
+    static mapping = {
+        bug sqlType: "integer", length: 4
+    }
+
+    def afterLoad = {
+        bug = td.Bug.get(tdRef)
     }
 }
 

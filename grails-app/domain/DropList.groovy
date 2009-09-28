@@ -1,8 +1,11 @@
-class Group {
+class DropList {
 
     String name
     String description
     boolean completed
+    Customer customer
+    Date toTest
+    Date toCustomer
 
     static hasMany = [items:Item]
 
@@ -13,7 +16,6 @@ class Group {
     }
 
     static mapping = {
-        table "grouping"
         description type:"text"
     }
 }
